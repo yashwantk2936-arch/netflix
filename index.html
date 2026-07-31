@@ -327,7 +327,7 @@
         /* Trailers / Teasers Grid */
         .trailer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
         }
 
@@ -402,7 +402,7 @@
             color: var(--text-sub);
         }
 
-        /* Video Grid Layout */
+        /* Video Grids */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -415,11 +415,12 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             border: 1px solid var(--card-border);
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, transform 0.3s;
         }
 
         .video-card:hover {
             border-color: var(--accent);
+            transform: translateY(-3px);
         }
 
         .video-wrapper {
@@ -639,7 +640,8 @@
             <li><a href="#hero">Home</a></li>
             <li><a href="#trailers">Teasers & Trailers</a></li>
             <li><a href="#photos">Photo Gallery</a></li>
-            <li><a href="#videos">Video Vault</a></li>
+            <li><a href="#video-vault">Video Vault</a></li>
+            <li><a href="#vlogs">Vlogs</a></li>
         </ul>
     </nav>
 
@@ -693,12 +695,20 @@
             </div>
         </section>
 
-        <!-- SECTION 3: VIDEO GALLERY -->
-        <section class="row" id="videos">
+        <!-- SECTION 3: SEPARATE VIDEO VAULT -->
+        <section class="row" id="video-vault">
             <div class="row-header">
-                <h2 class="row-title">Video Vault & Vlogs 📹</h2>
+                <h2 class="row-title">Video Vault & Candid Moments 🎬</h2>
             </div>
-            <div class="video-grid" id="videoGrid"></div>
+            <div class="video-grid" id="videoVaultGrid"></div>
+        </section>
+
+        <!-- SECTION 4: SEPARATE VLOGS SECTION -->
+        <section class="row" id="vlogs">
+            <div class="row-header">
+                <h2 class="row-title">Vlogs & Travel Stories 📹</h2>
+            </div>
+            <div class="video-grid" id="vlogGrid"></div>
         </section>
 
     </main>
@@ -754,17 +764,24 @@
             ]
         };
 
-        // Video Data
-        const videoData = [
-            { title: 'Summer Vlog Teaser 💕', src: 'https://www.w3schools.com/html/mov_bbb.mp4', poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', duration: '0:10' },
-            { title: 'Highway Roadtrip Snippet 💖', src: 'https://www.w3schools.com/html/movie.mp4', poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600', duration: '0:12' }
+        // Video Vault Data (Short clips, candid snippets)
+        const videoVaultData = [
+            { title: 'Surprise Candlelight Clip 🍷', src: 'https://www.w3schools.com/html/mov_bbb.mp4', poster: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600', duration: '0:10' },
+            { title: 'Cute Coffee Morning Memory ☕', src: 'https://www.w3schools.com/html/movie.mp4', poster: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=600', duration: '0:12' }
         ];
 
-        // Trailers Data (One trailer for each Photo and Video collection)
+        // Vlogs Data (Longer travel stories & adventures)
+        const vlogData = [
+            { title: 'Summer Beach Vlog Episode 1 🌴', src: 'https://www.w3schools.com/html/mov_bbb.mp4', poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', duration: '1:30' },
+            { title: 'Roadtrip & Mountain Exploration 🚗', src: 'https://www.w3schools.com/html/movie.mp4', poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600', duration: '2:15' }
+        ];
+
+        // Trailers Data
         const trailersData = [
             { tag: 'PHOTO TRAILER 💖', title: 'Season 1: Travel Memories', desc: 'A quick preview of our favorite journeys around the world.', poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', action: () => openSlideshow('Travel & Trips', 0) },
             { tag: 'PHOTO TRAILER 💕', title: 'Season 2: Romantic Date Nights', desc: 'Cozy evenings, delicious dinners, and endless conversations.', poster: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600', action: () => openSlideshow('Date Nights', 0) },
-            { tag: 'VIDEO TRAILER 🎬', title: 'Vlogs & Video Vault', desc: 'Live motion clips and highlights capturing our sweetest moments.', poster: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600', action: () => document.getElementById('videos').scrollIntoView({behavior: 'smooth'}) }
+            { tag: 'VIDEO VAULT 🎬', title: 'Candid Video Vault', desc: 'Quick unscripted clips and sweet memories preserved forever.', poster: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600', action: () => document.getElementById('video-vault').scrollIntoView({behavior: 'smooth'}) },
+            { tag: 'VLOG TRAILER 📹', title: 'Travel Vlogs Series', desc: 'Full motion stories capturing our adventures on the road.', poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600', action: () => document.getElementById('vlogs').scrollIntoView({behavior: 'smooth'}) }
         ];
 
         // State Variables
@@ -816,10 +833,10 @@
             });
         }
 
-        // Populate Videos Section
-        function renderVideos() {
-            const grid = document.getElementById('videoGrid');
-            videoData.forEach(v => {
+        // Generic Video Renderer
+        function renderVideoList(gridId, data) {
+            const grid = document.getElementById(gridId);
+            data.forEach(v => {
                 const card = document.createElement('div');
                 card.className = 'video-card';
                 card.innerHTML = `
@@ -841,7 +858,8 @@
         populateRow('row-travel', 'Travel & Trips');
         populateRow('row-dates', 'Date Nights');
         renderTrailers();
-        renderVideos();
+        renderVideoList('videoVaultGrid', videoVaultData);
+        renderVideoList('vlogGrid', vlogData);
 
         // Slideshow Engine
         function openSlideshow(category, startIndex = 0) {
@@ -862,7 +880,6 @@
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // Play background music on slideshow start
             playMusic();
         }
 
