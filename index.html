@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html_content = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -43,6 +43,8 @@
             align-items: center;
             animation: fadeOutIntro 1s forwards 3.5s;
             pointer-events: none;
+            padding: 20px;
+            text-align: center;
         }
 
         .intro-title {
@@ -107,6 +109,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             text-shadow: 0 0 10px var(--glow);
+            white-space: nowrap;
         }
 
         .logo span {
@@ -117,6 +120,14 @@
             display: flex;
             gap: 20px;
             list-style: none;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
         }
 
         .nav-links a {
@@ -173,6 +184,7 @@
         .btn-group {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -250,6 +262,7 @@
             gap: 5px;
             font-weight: 600;
             transition: color 0.3s;
+            white-space: nowrap;
         }
 
         .view-all-btn:hover {
@@ -264,6 +277,7 @@
             overflow-x: auto;
             scroll-behavior: smooth;
             padding: 10px 0;
+            -webkit-overflow-scrolling: touch;
         }
 
         .row-cards::-webkit-scrollbar {
@@ -517,6 +531,7 @@
             justify-content: center;
             overflow-x: auto;
             padding: 10px 0;
+            -webkit-overflow-scrolling: touch;
         }
 
         .thumbnail-bar::-webkit-scrollbar {
@@ -546,6 +561,86 @@
             border-color: var(--primary);
             transform: scale(1.05);
             box-shadow: 0 0 10px var(--glow);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 15px 4%;
+            }
+
+            .nav-links {
+                width: 100%;
+                gap: 15px;
+            }
+
+            .intro-title {
+                font-size: 2.2rem;
+                letter-spacing: 2px;
+            }
+
+            .intro-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero {
+                height: 70vh;
+                padding: 0 5%;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.9rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .row-title {
+                font-size: 1.3rem;
+            }
+
+            .card {
+                flex: 0 0 180px;
+                height: 110px;
+            }
+
+            .trailer-grid,
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .slide-image-container {
+                max-width: 95%;
+                max-height: 55vh;
+            }
+
+            .nav-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .arrow-prev { left: 5px; }
+            .arrow-next { right: 5px; }
+
+            .modal-title {
+                font-size: 1.3rem;
+            }
+
+            .action-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -726,6 +821,21 @@
         let musicPlaying = false;
         const bgMusic = document.getElementById('bgMusic');
 
+        // Single Video Playing Enforcement
+        function setupSingleVideoPlayback() {
+            document.addEventListener('play', function(e) {
+                if (e.target.tagName === 'VIDEO') {
+                    pauseMusic();
+                    const allVideos = document.querySelectorAll('video');
+                    allVideos.forEach(v => {
+                        if (v !== e.target && !v.paused) {
+                            v.pause();
+                        }
+                    });
+                }
+            }, true);
+        }
+
         // Populate Photo Cards Row
         function populateRow(rowId, category) {
             const rowContainer = document.getElementById(rowId);
@@ -781,9 +891,13 @@
         renderTrailers();
         renderVideoList('videoVaultGrid', videoVaultData);
         renderVideoList('vlogGrid', vlogData);
+        setupSingleVideoPlayback();
 
         // Slideshow Engine
         function openSlideshow(category, startIndex = 0) {
+            const allVideos = document.querySelectorAll('video');
+            allVideos.forEach(v => v.pause());
+
             const modal = document.getElementById('slideshowModal');
             document.getElementById('modalTitle').innerText = category;
 
@@ -921,3 +1035,9 @@
     </script>
 </body>
 </html>
+'''
+
+with open('index.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
+
+print("Generated index.html successfully")
