@@ -564,10 +564,11 @@
         <div class="logo">OUR<span>CINEMA 💕</span></div>
         <ul class="nav-links">
             <li><a href="#hero">Home</a></li>
+            <li><a href="#overview">Overview</a></li>
             <li><a href="#first-meet">First Meet</a></li>
             <li><a href="#most-beautiful">Most Beautiful Thing I Have Ever Seen</a></li>
-            <li><a href="#us-together">Us Together</a></li>
             <li><a href="#my-foreverlove">My Forever Love</a></li>
+            <li><a href="#us-together">Us Together</a></li>
         </ul>
     </nav>
 
@@ -579,7 +580,7 @@
                 <button class="btn btn-play" onclick="openSlideshow('All Memories', 0)">
                     <i class="fas fa-play"></i> Play Full Slideshow
                 </button>
-                <button class="btn btn-info" onclick="document.getElementById('first-meet').scrollIntoView({behavior: 'smooth'})">
+                <button class="btn btn-info" onclick="document.getElementById('overview').scrollIntoView({behavior: 'smooth'})">
                     <i class="fas fa-film"></i> View Trailers
                 </button>
             </div>
@@ -588,44 +589,52 @@
 
     <main class="container">
 
-        <!-- SECTION 1: FIRST MEET -->
-        <section class="row" id="first-meet">
+        <!-- SECTION 1: OVERVIEW -->
+        <section class="row" id="overview">
             <div class="row-header">
-                <h2 class="row-title">First Meet 💖</h2>
+                <h2 class="row-title">Overview 💖</h2>
             </div>
             <div class="trailer-grid" id="trailerGrid"></div>
         </section>
 
-        <!-- SECTION 2: MOST BEAUTIFUL THING I HAVE EVER SEEN -->
-        <section class="row" id="most-beautiful">
+        <!-- SECTION 2: FIRST MEET (FIRST 4 PHOTOS) -->
+        <section class="row" id="first-meet">
             <div class="row-header">
-                <h2 class="row-title">Most Beautiful Thing I Have Ever Seen 🌸</h2>
-                <span class="view-all-btn" onclick="openSlideshow('All Memories', 0)">
+                <h2 class="row-title">First Meet 🌸</h2>
+                <span class="view-all-btn" onclick="openSlideshow('First Meet', 0)">
                     Play All <i class="fas fa-chevron-right"></i>
                 </span>
             </div>
-            
             <div style="margin-bottom: 25px;">
                 <div class="row-cards" id="row-travel"></div>
             </div>
+        </section>
 
+        <!-- SECTION 3: MOST BEAUTIFUL THING I HAVE EVER SEEN (NEXT 4 PHOTOS) -->
+        <section class="row" id="most-beautiful">
+            <div class="row-header">
+                <h2 class="row-title">Most Beautiful Thing I Have Ever Seen ✨</h2>
+                <span class="view-all-btn" onclick="openSlideshow('Most Beautiful Thing I Have Ever Seen', 0)">
+                    Play All <i class="fas fa-chevron-right"></i>
+                </span>
+            </div>
             <div style="margin-bottom: 25px;">
                 <div class="row-cards" id="row-dates"></div>
             </div>
         </section>
 
-        <!-- SECTION 3: US TOGETHER -->
-        <section class="row" id="us-together">
+        <!-- SECTION 4: MY FOREVER LOVE (FORMERLY US TOGETHER) -->
+        <section class="row" id="my-foreverlove">
             <div class="row-header">
-                <h2 class="row-title">Us Together 🎬</h2>
+                <h2 class="row-title">My Forever Love 🎬</h2>
             </div>
             <div class="video-grid" id="videoVaultGrid"></div>
         </section>
 
-        <!-- SECTION 4: MY FOREVER LOVE -->
-        <section class="row" id="my-foreverlove">
+        <!-- SECTION 5: US TOGETHER (FORMERLY MY FOREVER LOVE) -->
+        <section class="row" id="us-together">
             <div class="row-header">
-                <h2 class="row-title">My Forever Love 📹</h2>
+                <h2 class="row-title">Us Together 📹</h2>
             </div>
             <div class="video-grid" id="vlogGrid"></div>
         </section>
@@ -667,13 +676,13 @@
 
     <script>
         const photoData = {
-            'Travel & Trips': [
+            'First Meet': [
                 { url: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115428_913~2.jpg' },
                 { url: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115428_913~3.jpg' },
                 { url: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115433_824~3.jpg' },
                 { url: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115433_824~4.jpg' }
             ],
-            'Date Nights': [
+            'Most Beautiful Thing I Have Ever Seen': [
                 { url: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/Mobile%20Devices/2026-07-04_07-10-04_137.jpg' },
                 { url: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/Mobile%20Devices/517034597_1029295569287468_5484044787299971096_n.jpg' },
                 { url: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/Mobile%20Devices/IMG_20260719_152755_685.jpg' },
@@ -704,10 +713,10 @@
         ];
 
         const trailersData = [
-            { poster: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115428_913~2.jpg', action: () => openSlideshow('Travel & Trips', 0) },
-            { poster: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115428_913~3.jpg', action: () => openSlideshow('Date Nights', 0) },
-            { poster: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115433_824~3.jpg', action: () => document.getElementById('us-together').scrollIntoView({behavior: 'smooth'}) },
-            { poster: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115433_824~4.jpg', action: () => document.getElementById('my-foreverlove').scrollIntoView({behavior: 'smooth'}) }
+            { poster: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115428_913~2.jpg', action: () => openSlideshow('First Meet', 0) },
+            { poster: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115428_913~3.jpg', action: () => openSlideshow('Most Beautiful Thing I Have Ever Seen', 0) },
+            { poster: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115433_824~3.jpg', action: () => document.getElementById('my-foreverlove').scrollIntoView({behavior: 'smooth'}) },
+            { poster: 'https://raw.githubusercontent.com/yashwantk2936-arch/netflix/main/everything/first%20meet/IMG_20260731_115433_824~4.jpg', action: () => document.getElementById('us-together').scrollIntoView({behavior: 'smooth'}) }
         ];
 
         // State Variables
@@ -767,8 +776,8 @@
         }
 
         // Initialize All Sections
-        populateRow('row-travel', 'Travel & Trips');
-        populateRow('row-dates', 'Date Nights');
+        populateRow('row-travel', 'First Meet');
+        populateRow('row-dates', 'Most Beautiful Thing I Have Ever Seen');
         renderTrailers();
         renderVideoList('videoVaultGrid', videoVaultData);
         renderVideoList('vlogGrid', vlogData);
