@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- EDIT HERE: Webpage Browser Tab Title -->
     <title>Netflix - Girlfriend's Day Special Edition</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -137,7 +136,6 @@
         .hero {
             position: relative;
             height: 85vh;
-            /* EDIT HERE: Hero Banner Background Image URL */
             background: linear-gradient(180deg, rgba(15,10,13,0.2) 0%, var(--background) 100%),
                         url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1600') center/cover no-repeat;
             display: flex;
@@ -165,19 +163,11 @@
             font-size: 4rem;
             font-weight: 800;
             line-height: 1.1;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             text-shadow: 0 4px 15px rgba(0,0,0,0.7);
             background: linear-gradient(180deg, #ffffff 0%, #ffe5ec 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            font-size: 1.2rem;
-            color: #f8edeb;
-            margin-bottom: 30px;
-            line-height: 1.5;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .btn-group {
@@ -247,6 +237,7 @@
             border-left: 4px solid var(--primary);
             padding-left: 12px;
             color: #ffe5ec;
+            text-transform: capitalize;
         }
 
         .view-all-btn {
@@ -304,28 +295,6 @@
             z-index: 5;
         }
 
-        .card-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(0deg, rgba(15,10,13,0.9) 0%, rgba(15,10,13,0) 60%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 12px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .card:hover .card-overlay {
-            opacity: 1;
-        }
-
-        .card-caption {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #ffe5ec;
-        }
-
         /* Trailers / Teasers Grid */
         .trailer-grid {
             display: grid;
@@ -379,31 +348,6 @@
             color: #ffe5ec;
         }
 
-        .trailer-info {
-            padding: 15px;
-        }
-
-        .trailer-tag {
-            font-size: 0.75rem;
-            color: var(--accent);
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .trailer-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: #ffe5ec;
-        }
-
-        .trailer-desc {
-            font-size: 0.85rem;
-            color: var(--text-sub);
-        }
-
         /* Video Grids */
         .video-grid {
             display: grid;
@@ -436,10 +380,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        .video-info {
-            padding: 15px;
         }
 
         /* Slideshow Modal */
@@ -541,19 +481,6 @@
             border: 1px solid rgba(255, 133, 161, 0.2);
         }
 
-        .slide-caption {
-            margin-top: 15px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-align: center;
-            color: #ffe5ec;
-            background: rgba(26, 15, 22, 0.85);
-            padding: 8px 22px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 133, 161, 0.3);
-            backdrop-filter: blur(5px);
-        }
-
         .nav-arrow {
             position: absolute;
             top: 50%;
@@ -624,97 +551,81 @@
 </head>
 <body>
 
-    <!-- EDIT HERE: Background Music URL or Local MP3 path -->
     <audio id="bgMusic" loop preload="auto">
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mp3">
     </audio>
 
-    <!-- EDIT HERE: Opening Intro Screen Title and Subtitle -->
     <div class="intro-screen">
         <div class="intro-title">OUR CINEMA 💕</div>
         <div class="intro-subtitle">Girlfriend's Day Romantic Edition</div>
     </div>
 
-    <!-- EDIT HERE: Navigation Bar Brand Logo & Link Titles -->
     <nav id="navbar">
         <div class="logo">OUR<span>CINEMA 💕</span></div>
         <ul class="nav-links">
             <li><a href="#hero">Home</a></li>
-            <li><a href="#first meet">first meet</a></li>
-            <li><a href="#most beautifull thing i have ever seen">most beautifull thing i have ever seen</a></li>
-            <li><a href="#us together">us together</a></li>
-            <li><a href="#my foreverlove">my foreverlove</a></li>
+            <li><a href="#first-meet">First Meet</a></li>
+            <li><a href="#most-beautiful">Most Beautiful Thing I Have Ever Seen</a></li>
+            <li><a href="#us-together">Us Together</a></li>
+            <li><a href="#my-foreverlove">My Forever Love</a></li>
         </ul>
     </nav>
 
-    <!-- EDIT HERE: Hero Main Section Title, Badge, Description, and Buttons -->
     <header class="hero" id="hero">
         <div class="hero-content">
             <span class="hero-badge"><i class="fas fa-heart"></i> LOVE EDITION</span>
             <h1 class="hero-title">Our Love Story</h1>
-            <p class="hero-desc">
-                Stream our finest moments together. Enjoy romantic photo slideshows with sweet background music, high-definition video vlogs, and official teaser trailers.
-            </p>
             <div class="btn-group">
                 <button class="btn btn-play" onclick="openSlideshow('All Memories', 0)">
                     <i class="fas fa-play"></i> Play Full Slideshow
                 </button>
-                <button class="btn btn-info" onclick="document.getElementById('trailers').scrollIntoView({behavior: 'smooth'})">
+                <button class="btn btn-info" onclick="document.getElementById('first-meet').scrollIntoView({behavior: 'smooth'})">
                     <i class="fas fa-film"></i> View Trailers
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Container -->
     <main class="container">
 
-        <!-- SECTION 1: TRAILERS / TEASERS -->
-        <section class="row" id="first meet">
+        <!-- SECTION 1: FIRST MEET -->
+        <section class="row" id="first-meet">
             <div class="row-header">
-                <!-- EDIT HERE: Section Header Title -->
-                <h2 class="row-title">Official Gallery Trailers 💖</h2>
+                <h2 class="row-title">First Meet 💖</h2>
             </div>
             <div class="trailer-grid" id="trailerGrid"></div>
         </section>
 
-        <!-- SECTION 2: PHOTO GALLERIES (SLIDESHOW ENABLED) -->
-        <section class="row" id="photos">
+        <!-- SECTION 2: MOST BEAUTIFUL THING I HAVE EVER SEEN -->
+        <section class="row" id="most-beautiful">
             <div class="row-header">
-                <!-- EDIT HERE: Photo Main Title -->
-                <h2 class="row-title">Photo Collections  🌸</h2>
+                <h2 class="row-title">Most Beautiful Thing I Have Ever Seen 🌸</h2>
                 <span class="view-all-btn" onclick="openSlideshow('All Memories', 0)">
                     Play All <i class="fas fa-chevron-right"></i>
                 </span>
             </div>
             
             <div style="margin-bottom: 25px;">
-                <!-- EDIT HERE: Sub-category Title 1 -->
-                <h3 style="font-size: 1.1rem; color: var(--accent); margin-bottom: 10px;">Travel & Trips 🌴</h3>
                 <div class="row-cards" id="row-travel"></div>
             </div>
 
             <div style="margin-bottom: 25px;">
-                <!-- EDIT HERE: Sub-category Title 2 -->
-                <h3 style="font-size: 1.1rem; color: var(--accent); margin-bottom: 10px;">Date Nights 🍷</h3>
                 <div class="row-cards" id="row-dates"></div>
             </div>
         </section>
 
-        <!-- SECTION 3: SEPARATE VIDEO VAULT -->
-        <section class="row" id="us together">
+        <!-- SECTION 3: US TOGETHER -->
+        <section class="row" id="us-together">
             <div class="row-header">
-                <!-- EDIT HERE: Video Vault Title -->
-                <h2 class="row-title">Video Vault & Candid Moments 🎬</h2>
+                <h2 class="row-title">Us Together 🎬</h2>
             </div>
             <div class="video-grid" id="videoVaultGrid"></div>
         </section>
 
-        <!-- SECTION 4: SEPARATE VLOGS SECTION -->
-        <section class="row" id="my foreverlove">
+        <!-- SECTION 4: MY FOREVER LOVE -->
+        <section class="row" id="my-foreverlove">
             <div class="row-header">
-                <!-- EDIT HERE: Vlogs Section Title -->
-                <h2 class="row-title">Vlogs & Travel Stories 📹</h2>
+                <h2 class="row-title">My Forever Love 📹</h2>
             </div>
             <div class="video-grid" id="vlogGrid"></div>
         </section>
@@ -746,7 +657,6 @@
             
             <div class="slide-image-container">
                 <img id="currentSlideImg" class="slide-image" src="" alt="Slideshow Image">
-                <div class="slide-caption" id="currentSlideCaption">Caption</div>
             </div>
 
             <button class="nav-arrow arrow-next" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
@@ -756,57 +666,36 @@
     </div>
 
     <script>
-        /* ==========================================================================
-           EDIT HERE: YOUR PHOTOS & CAPTIONS
-           Change the 'url' to your image file path (e.g. 'photos/myphoto.jpg')
-           Change the 'caption' to your custom photo message
-           ========================================================================== */
         const photoData = {
             'Travel & Trips': [
-                { url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800', caption: 'Beach Getaway 🌴' },
-                { url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800', caption: 'Road Trip Discoveries 🚗' },
-                { url: 'https://images.unsplash.com/photo-1476514525535-ce74f45814e3?q=80&w=800', caption: 'Mountain Hiking Adventure ⛰️' },
-                { url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800', caption: 'Exploring Old Streets 🏙️' }
+                { url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800' },
+                { url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800' },
+                { url: 'https://images.unsplash.com/photo-1476514525535-ce74f45814e3?q=80&w=800' },
+                { url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800' }
             ],
             'Date Nights': [
-                { url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800', caption: 'Candlelight Dinner 🍷' },
-                { url: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=800', caption: 'Late Night Movies 🍿' },
-                { url: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800', caption: 'Coffee Mornings ☕' },
-                { url: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800', caption: 'Evening Walks 🌆' }
+                { url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800' },
+                { url: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=800' },
+                { url: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800' },
+                { url: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800' }
             ]
         };
 
-        /* ==========================================================================
-           EDIT HERE: YOUR VIDEO VAULT CLIPS
-           Change 'title' to your video title
-           Change 'src' to your video file path (e.g. 'videos/clip1.mp4')
-           Change 'poster' to your video thumbnail cover image
-           ========================================================================== */
         const videoVaultData = [
-            { title: 'Surprise Candlelight Clip 🍷', src: 'https://www.w3schools.com/html/mov_bbb.mp4', poster: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600', duration: '0:10' },
-            { title: 'Cute Coffee Morning Memory ☕', src: 'https://www.w3schools.com/html/movie.mp4', poster: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=600', duration: '0:12' }
+            { src: 'https://www.w3schools.com/html/mov_bbb.mp4', poster: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600' },
+            { src: 'https://www.w3schools.com/html/movie.mp4', poster: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=600' }
         ];
 
-        /* ==========================================================================
-           EDIT HERE: YOUR TRAVEL VLOGS
-           Change 'title' to your vlog title
-           Change 'src' to your vlog video file path (e.g. 'videos/vlog1.mp4')
-           Change 'poster' to your vlog thumbnail cover image
-           ========================================================================== */
         const vlogData = [
-            { title: 'Summer Beach Vlog Episode 1 🌴', src: 'https://www.w3schools.com/html/mov_bbb.mp4', poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', duration: '1:30' },
-            { title: 'Roadtrip & Mountain Exploration 🚗', src: 'https://www.w3schools.com/html/movie.mp4', poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600', duration: '2:15' }
+            { src: 'https://www.w3schools.com/html/mov_bbb.mp4', poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600' },
+            { src: 'https://www.w3schools.com/html/movie.mp4', poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600' }
         ];
 
-        /* ==========================================================================
-           EDIT HERE: YOUR TRAILER TEASER CARDS
-           Change 'tag', 'title', 'desc', and 'poster' for each teaser card
-           ========================================================================== */
         const trailersData = [
-            { tag: 'PHOTO TRAILER 💖', title: 'Season 1: Travel Memories', desc: 'A quick preview of our favorite journeys around the world.', poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', action: () => openSlideshow('Travel & Trips', 0) },
-            { tag: 'PHOTO TRAILER 💕', title: 'Season 2: Romantic Date Nights', desc: 'Cozy evenings, delicious dinners, and endless conversations.', poster: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600', action: () => openSlideshow('Date Nights', 0) },
-            { tag: 'VIDEO VAULT 🎬', title: 'Candid Video Vault', desc: 'Quick unscripted clips and sweet memories preserved forever.', poster: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600', action: () => document.getElementById('video-vault').scrollIntoView({behavior: 'smooth'}) },
-            { tag: 'VLOG TRAILER 📹', title: 'Travel Vlogs Series', desc: 'Full motion stories capturing our adventures on the road.', poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600', action: () => document.getElementById('vlogs').scrollIntoView({behavior: 'smooth'}) }
+            { poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', action: () => openSlideshow('Travel & Trips', 0) },
+            { poster: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600', action: () => openSlideshow('Date Nights', 0) },
+            { poster: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600', action: () => document.getElementById('us-together').scrollIntoView({behavior: 'smooth'}) },
+            { poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600', action: () => document.getElementById('my-foreverlove').scrollIntoView({behavior: 'smooth'}) }
         ];
 
         // State Variables
@@ -826,12 +715,7 @@
                 card.className = 'card';
                 card.onclick = () => openSlideshow(category, index);
 
-                card.innerHTML = `
-                    <img src="${photo.url}" alt="${photo.caption}">
-                    <div class="card-overlay">
-                        <span class="card-caption">${photo.caption}</span>
-                    </div>
-                `;
+                card.innerHTML = `<img src="${photo.url}" alt="Photo">`;
                 rowContainer.appendChild(card);
             });
         }
@@ -845,13 +729,8 @@
                 card.onclick = t.action;
                 card.innerHTML = `
                     <div class="trailer-preview">
-                        <img src="${t.poster}" alt="${t.title}">
+                        <img src="${t.poster}" alt="Trailer Preview">
                         <div class="play-badge"><i class="fas fa-play-circle"></i></div>
-                    </div>
-                    <div class="trailer-info">
-                        <div class="trailer-tag">${t.tag}</div>
-                        <div class="trailer-title">${t.title}</div>
-                        <div class="trailer-desc">${t.desc}</div>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -869,10 +748,6 @@
                         <video controls preload="metadata" poster="${v.poster}">
                             <source src="${v.src}" type="video/mp4">
                         </video>
-                    </div>
-                    <div class="video-info">
-                        <div style="font-weight: 600; color: #ffe5ec;">${v.title}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-sub); margin-top: 4px;">Duration: ${v.duration}</div>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -921,8 +796,6 @@
             imgEl.style.opacity = '0.3';
             setTimeout(() => {
                 imgEl.src = slide.url;
-                imgEl.alt = slide.caption;
-                document.getElementById('currentSlideCaption').innerText = slide.caption;
                 document.getElementById('slideCounter').innerText = `${currentIndex + 1} / ${currentPlaylist.length}`;
                 imgEl.style.opacity = '1';
             }, 150);
