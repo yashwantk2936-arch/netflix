@@ -651,7 +651,7 @@
             <span class="hero-badge"><i class="fas fa-heart"></i> LOVE EDITION</span>
             <h1 class="hero-title">Our Love Story</h1>
             <p class="hero-desc">
-                Stream our finest moments together. Enjoy romantic photo slideshows with sweet background music, high-definition video vlogs, and official teaser trailers.
+                Stream our finest moments together. Enjoy romantic photo slideshows.
             </p>
             <div class="btn-group">
                 <button class="btn btn-play" onclick="openSlideshow('All Memories', 0)">
@@ -670,7 +670,7 @@
         <!-- SECTION 1: TRAILERS / TEASERS -->
         <section class="row" id="trailers">
             <div class="row-header">
-                <h2 class="row-title">Official Gallery Trailers 💖</h2>
+                <h2 class="row-title"> Gallery Trailers 💖</h2>
             </div>
             <div class="trailer-grid" id="trailerGrid"></div>
         </section>
@@ -678,19 +678,19 @@
         <!-- SECTION 2: PHOTO GALLERIES (SLIDESHOW ENABLED) -->
         <section class="row" id="photos">
             <div class="row-header">
-                <h2 class="row-title">Photo Collections (Slideshows + Music) 🌸</h2>
+                <h2 class="row-title"> first meet 🌸</h2>
                 <span class="view-all-btn" onclick="openSlideshow('All Memories', 0)">
                     Play All <i class="fas fa-chevron-right"></i>
                 </span>
             </div>
             
             <div style="margin-bottom: 25px;">
-                <h3 style="font-size: 1.1rem; color: var(--accent); margin-bottom: 10px;">Travel & Trips 🌴</h3>
+                <h3 style="font-size: 1.1rem; color: var(--accent); margin-bottom: 10px;"> in the woods 🌴</h3>
                 <div class="row-cards" id="row-travel"></div>
             </div>
 
             <div style="margin-bottom: 25px;">
-                <h3 style="font-size: 1.1rem; color: var(--accent); margin-bottom: 10px;">Date Nights 🍷</h3>
+                <h3 style="font-size: 1.1rem; color: var(--accent); margin-bottom: 10px;">most beautiful face i have ever seen</h3>
                 <div class="row-cards" id="row-dates"></div>
             </div>
         </section>
@@ -698,7 +698,7 @@
         <!-- SECTION 3: SEPARATE VIDEO VAULT -->
         <section class="row" id="video-vault">
             <div class="row-header">
-                <h2 class="row-title">Video Vault & Candid Moments 🎬</h2>
+                <h2 class="row-title">us together happy </h2>
             </div>
             <div class="video-grid" id="videoVaultGrid"></div>
         </section>
@@ -706,7 +706,7 @@
         <!-- SECTION 4: SEPARATE VLOGS SECTION -->
         <section class="row" id="vlogs">
             <div class="row-header">
-                <h2 class="row-title">Vlogs & Travel Stories 📹</h2>
+                <h2 class="row-title"> my beauty </h2>
             </div>
             <div class="video-grid" id="vlogGrid"></div>
         </section>
@@ -750,38 +750,38 @@
     <script>
         // Photo Data
         const photoData = {
-            'Travel & Trips': [
-                { url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800', caption: 'Beach Getaway 🌴' },
-                { url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800', caption: 'Road Trip Discoveries 🚗' },
-                { url: 'https://images.unsplash.com/photo-1476514525535-ce74f45814e3?q=80&w=800', caption: 'Mountain Hiking Adventure ⛰️' },
-                { url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800', caption: 'Exploring Old Streets 🏙️' }
+            'first meet': [
+                { url: "https://github.com/yashwantk2936-arch/netflix/blob/main/everything/first%20meet/IMG_20260731_115428_913~2.jpg', caption: 'Beach Getaway 🌴' },
+                { url: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/first%20meet/IMG_20260731_115428_913~3.jpg', caption: 'Road Trip Discoveries 🚗' },
+                { url: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/first%20meet/IMG_20260731_115433_824~3.jpg', caption: 'Mountain Hiking Adventure ⛰️' },
+                { url: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/first%20meet/IMG_20260731_115433_824~4.jpg', caption: 'Exploring Old Streets 🏙️' }
             ],
-            'Date Nights': [
-                { url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800', caption: 'Candlelight Dinner 🍷' },
-                { url: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=800', caption: 'Late Night Movies 🍿' },
-                { url: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800', caption: 'Coffee Mornings ☕' },
-                { url: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800', caption: 'Evening Walks 🌆' }
+            'most beautiful face i have ever seen': [
+                { url: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/2026-07-04_07-10-04_137.jpg', caption: ' in the colour of love' },
+                { url: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/517034597_1029295569287468_5484044787299971096_n.jpg', caption: 'like flower ' },
+                { url: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/IMG_20260719_152755_685.jpg', caption: 'simple but beautifull' },
+                { url: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/IMG_20260719_153042_221.jpg', caption: 'the beauty for which I fell everytime' }
             ]
         };
 
         // Video Vault Data (Short clips, candid snippets)
         const videoVaultData = [
-            { title: 'Surprise Candlelight Clip 🍷', src: 'https://www.w3schools.com/html/mov_bbb.mp4', poster: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600', duration: '0:10' },
-            { title: 'Cute Coffee Morning Memory ☕', src: 'https://www.w3schools.com/html/movie.mp4', poster: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=600', duration: '0:12' }
+            { title: 'always fan of your beauty', src: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/my%20beauty/Untitled%20-%20May%2002%2C%202026%20at%2013.23.05.mp4', poster: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/2026-07-04_07-10-04_137.jpg', duration: '0:10' },
+            { title: 'please forgive me malkin', src: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/my%20beauty/VN20260730_124843~2.mp4', poster: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/IMG_20260719_152755_685.jpg', duration: '0:12' }
         ];
 
         // Vlogs Data (Longer travel stories & adventures)
         const vlogData = [
-            { title: 'Summer Beach Vlog Episode 1 🌴', src: 'https://www.w3schools.com/html/mov_bbb.mp4', poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', duration: '1:30' },
-            { title: 'Roadtrip & Mountain Exploration 🚗', src: 'https://www.w3schools.com/html/movie.mp4', poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600', duration: '2:15' }
+            { title: 'Summer Beach Vlog Episode 1 🌴', src: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/us%20together/1000177538.mp4', poster: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/IMG_20260719_152755_685.jpg', duration: '1:30' },
+            { title: 'Roadtrip & Mountain Exploration 🚗', src: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/us%20together/1000177539.mp4', poster: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/2026-07-04_07-10-04_137.jpg', duration: '2:15' }
         ];
 
         // Trailers Data
         const trailersData = [
-            { tag: 'PHOTO TRAILER 💖', title: 'Season 1: Travel Memories', desc: 'A quick preview of our favorite journeys around the world.', poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', action: () => openSlideshow('Travel & Trips', 0) },
-            { tag: 'PHOTO TRAILER 💕', title: 'Season 2: Romantic Date Nights', desc: 'Cozy evenings, delicious dinners, and endless conversations.', poster: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600', action: () => openSlideshow('Date Nights', 0) },
-            { tag: 'VIDEO VAULT 🎬', title: 'Candid Video Vault', desc: 'Quick unscripted clips and sweet memories preserved forever.', poster: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600', action: () => document.getElementById('video-vault').scrollIntoView({behavior: 'smooth'}) },
-            { tag: 'VLOG TRAILER 📹', title: 'Travel Vlogs Series', desc: 'Full motion stories capturing our adventures on the road.', poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600', action: () => document.getElementById('vlogs').scrollIntoView({behavior: 'smooth'}) }
+            { tag: 'PHOTO TRAILER 💖', title: 'first meet', poster: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/first%20meet/IMG_20260731_115433_824~3.jpg', action: () => openSlideshow('Travel & Trips', 0) },
+            { tag: 'PHOTO TRAILER 💕', title: 'most beautiful face i have ever seen',  poster: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/IMG_20260719_153042_221.jpg', action: () => openSlideshow('Date Nights', 0) },
+            { tag: 'VIDEO VAULT 🎬', title: 'my forever love', poster: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/IMG_20260719_152755_685.jpg', action: () => document.getElementById('video-vault').scrollIntoView({behavior: 'smooth'}) },
+            { tag: 'happy moments 📹', title: 'us together', poster: 'https://github.com/yashwantk2936-arch/netflix/blob/main/everything/Mobile%20Devices/2026-07-04_07-10-04_137.jpg', action: () => document.getElementById('vlogs').scrollIntoView({behavior: 'smooth'}) }
         ];
 
         // State Variables
