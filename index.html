@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Girlfriend's Day Love Edition</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --primary-hover: #ff758f;
+            --background: #0f0a0d;
+            --card-bg: #1a0f16;
+            --card-border: #2e1824;
+            --text-main: #ffffff;
+            --text-sub: #d8b4c8;
+            --accent: #ff85a1;
+            --glow: rgba(255, 77, 109, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Cinematic Opening Intro */
+        .intro-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #230f1b 0%, #080306 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeOutIntro 1s forwards 3.5s;
+            pointer-events: none;
+        }
+
+        .intro-title {
+            color: var(--primary);
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInText 1.2s forwards 0.5s;
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .intro-subtitle {
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeInText 1.5s forwards 1.5s;
+        }
+
+        @keyframes fadeInText {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOutIntro {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            background: linear-gradient(180deg, rgba(15,10,13,0.95) 0%, rgba(15,10,13,0) 100%);
+            transition: background 0.4s;
+        }
+
+        nav.scrolled {
+            background-color: var(--background);
+            border-bottom: 1px solid var(--card-border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--glow);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.3s, color 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        /* Hero / Billboard */
+        .hero {
+            position: relative;
+            height: 85vh;
+            background: linear-gradient(180deg, rgba(15,10,13,0.2) 0%, var(--background) 100%),
+                        url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1600') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, #c9184a 100%);
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px var(--glow);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.7);
+            background: linear-gradient(180deg, #ffffff 0%, #ffe5ec 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: #f8edeb;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, #ff85a1 0%, var(--primary) 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px var(--glow);
+        }
+
+        .btn-play:hover {
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
+        }
+
+        .btn-info {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 133, 161, 0.3);
+        }
+
+        .btn-info:hover {
+            background-color: rgba(255, 133, 161, 0.25);
+        }
+
+        /* Layout Container */
+        .container {
+            padding: 40px 4% 80px 4%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .row {
+            margin-bottom: 55px;
+        }
+
+        .row-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .row-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+            color: #ffe5ec;
+        }
+
+        .view-all-btn {
+            color: var(--accent);
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .view-all-btn:hover {
+            color: var(--primary);
+            text-shadow: 0 0 8px var(--glow);
+        }
+
+        /* Cards Carousel Row */
+        .row-cards {
+            display: flex;
+            gap: 18px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 10px 0;
+        }
+
+        .row-cards::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            flex: 0 0 250px;
+            height: 150px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card:hover {
+            transform: scale(1.06);
+            box-shadow: 0 8px 25px var(--glow);
+            border-color: var(--primary);
+            z-index: 5;
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(15,10,13,0.9) 0%, rgba(15,10,13,0) 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-caption {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffe5ec;
+        }
+
+        /* Trailers / Teasers Grid */
+        .trailer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .trailer-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .trailer-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 20px var(--glow);
+        }
+
+        .trailer-preview {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        .trailer-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-badge {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 10, 13, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, color 0.3s;
+        }
+
+        .trailer-card:hover .play-badge {
+            background: rgba(255, 77, 109, 0.4);
+            color: #ffe5ec;
+        }
+
+        .trailer-info {
+            padding: 15px;
+        }
+
+        .trailer-tag {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .trailer-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #ffe5ec;
+        }
+
+        .trailer-desc {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        /* Video Grid Layout */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 1px solid var(--card-border);
+            transition: border-color 0.3s;
+        }
+
+        .video-card:hover {
+            border-color: var(--accent);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-info {
+            padding: 15px;
+        }
+
+        /* Slideshow Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(10, 5, 8, 0.96);
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 4%;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .modal-title-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 800;
+            text-shadow: 0 0 10px var(--glow);
+        }
+
+        .slide-counter {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-top: 2px;
+        }
+
+        .modal-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .action-btn {
+            background: rgba(255, 133, 161, 0.15);
+            border: 1px solid rgba(255, 133, 161, 0.3);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            box-shadow: 0 0 12px var(--glow);
+            transform: scale(1.1);
+        }
+
+        /* Stage Display */
+        .slideshow-stage {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .slide-image-container {
+            max-width: 85%;
+            max-height: 65vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slide-image {
+            max-width: 100%;
+            max-height: 60vh;
+            border-radius: 12px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.9), 0 0 20px var(--glow);
+            object-fit: contain;
+            transition: opacity 0.4s ease-in-out;
+            border: 1px solid rgba(255, 133, 161, 0.2);
+        }
+
+        .slide-caption {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            color: #ffe5ec;
+            background: rgba(26, 15, 22, 0.85);
+            padding: 8px 22px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 133, 161, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(26, 15, 22, 0.7);
+            color: #fff;
+            border: 1px solid rgba(255, 133, 161, 0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, transform 0.2s, border-color 0.3s;
+            z-index: 5;
+        }
+
+        .nav-arrow:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--glow);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .arrow-prev { left: 20px; }
+        .arrow-next { right: 20px; }
+
+        /* Thumbnails */
+        .thumbnail-bar {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .thumbnail-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .thumb {
+            width: 70px;
+            height: 45px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: opacity 0.3s, border 0.3s, transform 0.3s;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumb.active, .thumb:hover {
+            opacity: 1;
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px var(--glow);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio Element for Slideshow Background Music -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Cinematic Opening Intro -->
+    <div class="intro-screen">
+        <div class="intro-title">OUR CINEMA 💕</div>
+        <div class="intro-subtitle">Girlfriend's Day Romantic Edition</div>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav id="navbar">
+        <div class="logo">OUR<span>CINEMA 💕</span></div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#trailers">Teasers & Trailers</a></li>
+            <li><a href="#photos">Photo Gallery</a></li>
+            <li><a href="#videos">Video Vault</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Hero Banner -->
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <span class="hero-badge"><i class="fas fa-heart"></i> LOVE EDITION</span>
+            <h1 class="hero-title">Our Love Story</h1>
+            <p class="hero-desc">
+                Stream our finest moments together. Enjoy romantic photo slideshows with sweet background music, high-definition video vlogs, and official teaser trailers.
+            </p>
+            <div class="btn-group">
+                <button class="btn btn-play" onclick="openSlideshow('All Memories', 0)">
+                    <i class="fas fa-play"></i> Play Full Slideshow
+                </button>
+                <button class="btn btn-info" onclick="document.getElementById('trailers').scrollIntoView({behavior: 'smooth'})">
+                    <i class="fas fa-film"></i> View Trailers
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container">
+
+        <!-- SECTION 1: TRAILERS / TEASERS -->
+        <section class="row" id="trailers">
+            <div class="row-header">
+                <h2 class="row-title">Official Gallery Trailers 💖</h2>
+            </div>
+            <div class="trailer-grid" id="trailerGrid"></div>
+        </section>
+
+        <!-- SECTION 2: PHOTO GALLERIES (SLIDESHOW ENABLED) -->
+        <section class="row" id="photos">
+            <div class="row-header">
+                <h2 class="row-title">Photo Collections (Slideshows + Music) 🌸</h2>
+                <span class="view-all-btn" onclick="openSlideshow('All Memories', 0)">
+                    Play All <i class="fas fa-chevron-right"></i>
+                </span>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <h3 style="font-size: 1.1rem; color: var(--accent); margin-bottom: 10px;">Travel & Trips 🌴</h3>
+                <div class="row-cards" id="row-travel"></div>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <h3 style="font-size: 1.1rem; color: var(--accent); margin-bottom: 10px;">Date Nights 🍷</h3>
+                <div class="row-cards" id="row-dates"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: VIDEO GALLERY -->
+        <section class="row" id="videos">
+            <div class="row-header">
+                <h2 class="row-title">Video Vault & Vlogs 📹</h2>
+            </div>
+            <div class="video-grid" id="videoGrid"></div>
+        </section>
+
+    </main>
+
+    <!-- Interactive Slideshow Modal -->
+    <div class="modal" id="slideshowModal">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <h2 class="modal-title" id="modalTitle">Gallery</h2>
+                <span class="slide-counter" id="slideCounter">1 / 4</span>
+            </div>
+            <div class="modal-actions">
+                <button class="action-btn" id="musicBtn" onclick="toggleMusic()" title="Toggle Music">
+                    <i class="fas fa-music" id="musicIcon" style="color: var(--accent);"></i>
+                </button>
+                <button class="action-btn" id="playPauseBtn" onclick="toggleAutoplay()" title="Play / Pause Slideshow">
+                    <i class="fas fa-play" id="playIcon"></i>
+                </button>
+                <button class="action-btn" onclick="closeSlideshow()" title="Close (Esc)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="slideshow-stage">
+            <button class="nav-arrow arrow-prev" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+            
+            <div class="slide-image-container">
+                <img id="currentSlideImg" class="slide-image" src="" alt="Slideshow Image">
+                <div class="slide-caption" id="currentSlideCaption">Caption</div>
+            </div>
+
+            <button class="nav-arrow arrow-next" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <div class="thumbnail-bar" id="thumbnailBar"></div>
+    </div>
+
+    <script>
+        // Photo Data
+        const photoData = {
+            'Travel & Trips': [
+                { url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800', caption: 'Beach Getaway 🌴' },
+                { url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800', caption: 'Road Trip Discoveries 🚗' },
+                { url: 'https://images.unsplash.com/photo-1476514525535-ce74f45814e3?q=80&w=800', caption: 'Mountain Hiking Adventure ⛰️' },
+                { url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800', caption: 'Exploring Old Streets 🏙️' }
+            ],
+            'Date Nights': [
+                { url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800', caption: 'Candlelight Dinner 🍷' },
+                { url: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=800', caption: 'Late Night Movies 🍿' },
+                { url: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800', caption: 'Coffee Mornings ☕' },
+                { url: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800', caption: 'Evening Walks 🌆' }
+            ]
+        };
+
+        // Video Data
+        const videoData = [
+            { title: 'Summer Vlog Teaser 💕', src: 'https://www.w3schools.com/html/mov_bbb.mp4', poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', duration: '0:10' },
+            { title: 'Highway Roadtrip Snippet 💖', src: 'https://www.w3schools.com/html/movie.mp4', poster: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600', duration: '0:12' }
+        ];
+
+        // Trailers Data (One trailer for each Photo and Video collection)
+        const trailersData = [
+            { tag: 'PHOTO TRAILER 💖', title: 'Season 1: Travel Memories', desc: 'A quick preview of our favorite journeys around the world.', poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600', action: () => openSlideshow('Travel & Trips', 0) },
+            { tag: 'PHOTO TRAILER 💕', title: 'Season 2: Romantic Date Nights', desc: 'Cozy evenings, delicious dinners, and endless conversations.', poster: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600', action: () => openSlideshow('Date Nights', 0) },
+            { tag: 'VIDEO TRAILER 🎬', title: 'Vlogs & Video Vault', desc: 'Live motion clips and highlights capturing our sweetest moments.', poster: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600', action: () => document.getElementById('videos').scrollIntoView({behavior: 'smooth'}) }
+        ];
+
+        // State Variables
+        let currentPlaylist = [];
+        let currentIndex = 0;
+        let autoplayInterval = null;
+        let musicPlaying = false;
+        const bgMusic = document.getElementById('bgMusic');
+
+        // Populate Photo Cards Row
+        function populateRow(rowId, category) {
+            const rowContainer = document.getElementById(rowId);
+            const items = photoData[category];
+
+            items.forEach((photo, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => openSlideshow(category, index);
+
+                card.innerHTML = `
+                    <img src="${photo.url}" alt="${photo.caption}">
+                    <div class="card-overlay">
+                        <span class="card-caption">${photo.caption}</span>
+                    </div>
+                `;
+                rowContainer.appendChild(card);
+            });
+        }
+
+        // Populate Trailers Section
+        function renderTrailers() {
+            const grid = document.getElementById('trailerGrid');
+            trailersData.forEach(t => {
+                const card = document.createElement('div');
+                card.className = 'trailer-card';
+                card.onclick = t.action;
+                card.innerHTML = `
+                    <div class="trailer-preview">
+                        <img src="${t.poster}" alt="${t.title}">
+                        <div class="play-badge"><i class="fas fa-play-circle"></i></div>
+                    </div>
+                    <div class="trailer-info">
+                        <div class="trailer-tag">${t.tag}</div>
+                        <div class="trailer-title">${t.title}</div>
+                        <div class="trailer-desc">${t.desc}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Populate Videos Section
+        function renderVideos() {
+            const grid = document.getElementById('videoGrid');
+            videoData.forEach(v => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.innerHTML = `
+                    <div class="video-wrapper">
+                        <video controls preload="metadata" poster="${v.poster}">
+                            <source src="${v.src}" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <div style="font-weight: 600; color: #ffe5ec;">${v.title}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-sub); margin-top: 4px;">Duration: ${v.duration}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Initialize All Sections
+        populateRow('row-travel', 'Travel & Trips');
+        populateRow('row-dates', 'Date Nights');
+        renderTrailers();
+        renderVideos();
+
+        // Slideshow Engine
+        function openSlideshow(category, startIndex = 0) {
+            const modal = document.getElementById('slideshowModal');
+            document.getElementById('modalTitle').innerText = category;
+
+            if (category === 'All Memories') {
+                currentPlaylist = [];
+                Object.values(photoData).forEach(arr => currentPlaylist.push(...arr));
+            } else {
+                currentPlaylist = photoData[category] || [];
+            }
+
+            currentIndex = startIndex;
+            renderThumbnails();
+            showSlide(currentIndex);
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Play background music on slideshow start
+            playMusic();
+        }
+
+        function showSlide(index) {
+            if (currentPlaylist.length === 0) return;
+            
+            if (index < 0) currentIndex = currentPlaylist.length - 1;
+            else if (index >= currentPlaylist.length) currentIndex = 0;
+            else currentIndex = index;
+
+            const slide = currentPlaylist[currentIndex];
+            const imgEl = document.getElementById('currentSlideImg');
+            
+            imgEl.style.opacity = '0.3';
+            setTimeout(() => {
+                imgEl.src = slide.url;
+                imgEl.alt = slide.caption;
+                document.getElementById('currentSlideCaption').innerText = slide.caption;
+                document.getElementById('slideCounter').innerText = `${currentIndex + 1} / ${currentPlaylist.length}`;
+                imgEl.style.opacity = '1';
+            }, 150);
+
+            updateActiveThumbnail();
+        }
+
+        function nextSlide() { showSlide(currentIndex + 1); }
+        function prevSlide() { showSlide(currentIndex - 1); }
+
+        function renderThumbnails() {
+            const thumbBar = document.getElementById('thumbnailBar');
+            thumbBar.innerHTML = '';
+            currentPlaylist.forEach((photo, idx) => {
+                const thumb = document.createElement('div');
+                thumb.className = `thumb ${idx === currentIndex ? 'active' : ''}`;
+                thumb.onclick = () => showSlide(idx);
+                thumb.innerHTML = `<img src="${photo.url}" alt="thumb">`;
+                thumbBar.appendChild(thumb);
+            });
+        }
+
+        function updateActiveThumbnail() {
+            const thumbs = document.querySelectorAll('.thumb');
+            thumbs.forEach((t, i) => {
+                if (i === currentIndex) {
+                    t.classList.add('active');
+                    t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                } else {
+                    t.classList.remove('active');
+                }
+            });
+        }
+
+        // Music Controls
+        function playMusic() {
+            bgMusic.play().then(() => {
+                musicPlaying = true;
+                document.getElementById('musicIcon').style.color = 'var(--primary)';
+            }).catch(e => console.log('Autoplay audio blocked by browser policy.'));
+        }
+
+        function pauseMusic() {
+            bgMusic.pause();
+            musicPlaying = false;
+            document.getElementById('musicIcon').style.color = '#fff';
+        }
+
+        function toggleMusic() {
+            if (musicPlaying) pauseMusic();
+            else playMusic();
+        }
+
+        // Autoplay Controls
+        function toggleAutoplay() {
+            const icon = document.getElementById('playIcon');
+            if (autoplayInterval) {
+                clearInterval(autoplayInterval);
+                autoplayInterval = null;
+                icon.className = 'fas fa-play';
+            } else {
+                nextSlide();
+                autoplayInterval = setInterval(nextSlide, 3000);
+                icon.className = 'fas fa-pause';
+            }
+        }
+
+        function closeSlideshow() {
+            if (autoplayInterval) {
+                clearInterval(autoplayInterval);
+                autoplayInterval = null;
+                document.getElementById('playIcon').className = 'fas fa-play';
+            }
+            pauseMusic();
+            document.getElementById('slideshowModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('slideshowModal');
+            if (!modal.classList.contains('active')) return;
+
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'Escape') closeSlideshow();
+            if (e.key === ' ') {
+                e.preventDefault();
+                toggleAutoplay();
+            }
+        });
+
+        // Dynamic Header Bar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
