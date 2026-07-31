@@ -1,4 +1,4 @@
-html_content = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -465,7 +465,7 @@ html_content = '''<!DOCTYPE html>
             transform: scale(1.1);
         }
 
-        /* Stage Display */
+        /* Stage Display & Touch Slider Container */
         .slideshow-stage {
             position: relative;
             flex: 1;
@@ -474,6 +474,8 @@ html_content = '''<!DOCTYPE html>
             justify-content: center;
             margin: 20px 0;
             overflow: hidden;
+            touch-action: pan-y;
+            user-select: none;
         }
 
         .slide-image-container {
@@ -483,6 +485,11 @@ html_content = '''<!DOCTYPE html>
             display: flex;
             flex-direction: column;
             align-items: center;
+            cursor: grab;
+        }
+
+        .slide-image-container:active {
+            cursor: grabbing;
         }
 
         .slide-image {
@@ -491,8 +498,9 @@ html_content = '''<!DOCTYPE html>
             border-radius: 12px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.9), 0 0 20px var(--glow);
             object-fit: contain;
-            transition: opacity 0.4s ease-in-out;
+            transition: opacity 0.4s ease-in-out, transform 0.2s ease-out;
             border: 1px solid rgba(255, 133, 161, 0.2);
+            pointer-events: none;
         }
 
         .nav-arrow {
@@ -718,7 +726,7 @@ html_content = '''<!DOCTYPE html>
             </div>
         </section>
 
-        <!-- SECTION 4: MY FOREVER LOVE (FORMERLY US TOGETHER) -->
+        <!-- SECTION 4: MY FOREVER LOVE -->
         <section class="row" id="my-foreverlove">
             <div class="row-header">
                 <h2 class="row-title">My Forever Love 🎬</h2>
@@ -726,7 +734,7 @@ html_content = '''<!DOCTYPE html>
             <div class="video-grid" id="videoVaultGrid"></div>
         </section>
 
-        <!-- SECTION 5: US TOGETHER (FORMERLY MY FOREVER LOVE) -->
+        <!-- SECTION 5: US TOGETHER -->
         <section class="row" id="us-together">
             <div class="row-header">
                 <h2 class="row-title">Us Together 📹</h2>
@@ -756,10 +764,10 @@ html_content = '''<!DOCTYPE html>
             </div>
         </div>
 
-        <div class="slideshow-stage">
+        <div class="slideshow-stage" id="slideshowStage">
             <button class="nav-arrow arrow-prev" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
             
-            <div class="slide-image-container">
+            <div class="slide-image-container" id="slideImageContainer">
                 <img id="currentSlideImg" class="slide-image" src="" alt="Slideshow Image">
             </div>
 
@@ -820,6 +828,11 @@ html_content = '''<!DOCTYPE html>
         let autoplayInterval = null;
         let musicPlaying = false;
         const bgMusic = document.getElementById('bgMusic');
+
+        // Touch & Mouse Slider variables
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
 
         // Single Video Playing Enforcement
         function setupSingleVideoPlayback() {
@@ -885,6 +898,77 @@ html_content = '''<!DOCTYPE html>
             });
         }
 
+        // Setup Touch and Mouse Slide Gesture Controls
+        function setupSlideGesture() {
+            const stage = document.getElementById('slideshowStage');
+            const imgEl = document.getElementById('currentSlideImg');
+
+            // Touch events
+            stage.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            }, { passive: true });
+
+            stage.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                currentX = e.touches[0].clientX;
+                const diff = currentX - startX;
+                imgEl.style.transform = `translateX(${diff}px)`;
+            }, { passive: true });
+
+            stage.addEventListener('touchend', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                const diff = currentX - startX;
+                imgEl.style.transform = `translateX(0px)`;
+                
+                if (diff < -50) {
+                    nextSlide();
+                } else if (diff > 50) {
+                    prevSlide();
+                }
+                startX = 0;
+                currentX = 0;
+            });
+
+            // Mouse Drag events
+            stage.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                isDragging = true;
+            });
+
+            stage.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                currentX = e.clientX;
+                const diff = currentX - startX;
+                imgEl.style.transform = `translateX(${diff}px)`;
+            });
+
+            stage.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                const diff = currentX - startX;
+                imgEl.style.transform = `translateX(0px)`;
+
+                if (diff < -50) {
+                    nextSlide();
+                } else if (diff > 50) {
+                    prevSlide();
+                }
+                startX = 0;
+                currentX = 0;
+            });
+
+            stage.addEventListener('mouseleave', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    imgEl.style.transform = `translateX(0px)`;
+                    startX = 0;
+                    currentX = 0;
+                }
+            });
+        }
+
         // Initialize All Sections
         populateRow('row-travel', 'First Meet');
         populateRow('row-dates', 'Most Beautiful Thing I Have Ever Seen');
@@ -892,6 +976,7 @@ html_content = '''<!DOCTYPE html>
         renderVideoList('videoVaultGrid', videoVaultData);
         renderVideoList('vlogGrid', vlogData);
         setupSingleVideoPlayback();
+        setupSlideGesture();
 
         // Slideshow Engine
         function openSlideshow(category, startIndex = 0) {
@@ -1035,9 +1120,3 @@ html_content = '''<!DOCTYPE html>
     </script>
 </body>
 </html>
-'''
-
-with open('index.html', 'w', encoding='utf-8') as f:
-    f.write(html_content)
-
-print("Generated index.html successfully")
